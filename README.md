@@ -1,5 +1,7 @@
 # React Kanban Board
 
+<img width="861.5" height="511" alt="Kanban_Screenshot" src="https://github.com/user-attachments/assets/aa32d95b-8087-4b86-b6d8-870fe7c44daf" />
+
 A simple, single-page Kanban board built with **React**, **TypeScript**,
 **Vite**, and **Tailwind CSS**.
 
@@ -18,9 +20,11 @@ A simple, single-page Kanban board built with **React**, **TypeScript**,
 
 ## Live Demo
 
-🚀 **Deployed on Vercel:** https://react-kanban-board-rosy.vercel.app/
+🚀 **Deployed on Vercel:**
+Version 1.0: https://react-kanban-board-rosy.vercel.app/
 
-(Once deployed, I'll replace this line with the actual URL.)
+This project evolves over time. View all release versions here:
+https://github.com/MWardenDev/react-kanban-board/releases
 
 ---
 
