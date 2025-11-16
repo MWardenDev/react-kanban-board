@@ -1,13 +1,11 @@
-import { useState } from "react"
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
-import "./App.css"
+import { AppShell } from "./components/layout/AppShell"
+import { BoardPage } from "./features/board/BoardPage"
 
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Kanban coming soon…</h1>
-    </div>
+    <AppShell>
+      <BoardPage />
+    </AppShell>
   )
 }
 
