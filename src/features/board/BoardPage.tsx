@@ -1,3 +1,4 @@
+import { DndContext, type DragEndEvent } from "@dnd-kit/core"
 import { useCallback } from "react"
 import { useLocalStorageState } from "../../hooks/useLocalStorageState"
 import type { Column, ColumnId, Ticket } from "../../types/board"
@@ -54,17 +55,33 @@ export function BoardPage() {
     )
   }
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (!over) return
+
+    const ticketId = String(active.id)
+    const toColumnId = over.id as ColumnId
+
+    const isKnownTicket = tickets.some((t) => t.id === ticketId)
+    const isKnownColumn = columns.some((c) => c.id === toColumnId)
+
+    if (!isKnownTicket || !isKnownColumn) return
+
+    handleMoveTicket(ticketId, toColumnId)
+  }
+
   return (
-    <div className="grid gap-4 md:grid-cols-4">
-      {columns.map((column) => (
-        <ColumnComponent
-          key={column.id}
-          column={column}
-          tickets={ticketsByColumn(column.id)}
-          onAddTicket={handleAddTicket}
-          onMoveTicket={handleMoveTicket}
-        />
-      ))}
-    </div>
+    <DndContext onDragEnd={handleDragEnd}>
+      <div className="grid gap-4 md:grid-cols-4">
+        {columns.map((column) => (
+          <ColumnComponent
+            key={column.id}
+            column={column}
+            tickets={ticketsByColumn(column.id)}
+            onAddTicket={handleAddTicket}
+          />
+        ))}
+      </div>
+    </DndContext>
   )
 }

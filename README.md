@@ -21,10 +21,20 @@ A simple, single-page Kanban board built with **React**, **TypeScript**,
 ## Live Demo
 
 🚀 **Deployed on Vercel:**
-Version 1.0: https://react-kanban-board-rosy.vercel.app/
 
-This project evolves over time. View all release versions here:
+- **Version 2.0 (current):** https://react-kanban-board-rosy.vercel.app/
+- **Version 1.0:** https://github.com/MWardenDev/react-kanban-board/releases
+
+This project evolves over time.  
+All prior versions can be viewed here:  
 https://github.com/MWardenDev/react-kanban-board/releases
+
+---
+
+## Version History
+
+- **v2.0.0** — Added drag-and-drop support using @dnd-kit/core.
+- **v1.0.0** — Initial release: basic Kanban board, add ticket, localStorage persistence.
 
 ---
 
@@ -40,9 +50,10 @@ https://github.com/MWardenDev/react-kanban-board/releases
 
 ## Features
 
+- Drag-and-drop ticket movement between columns (`@dnd-kit/core`)
 - Four Kanban columns with distinct IDs and titles
-- Add tickets with a small inline form per column
-- Move tickets between columns via a "Move to" dropdown
+- Add tickets via inline form in each column
+- Real-time column highlighting during drag-over
 - Ticket counts displayed per column
 - Data stored and loaded from `localStorage` under a dedicated key
 - Simple, dark-themed UI with responsive grid layout
@@ -120,29 +131,38 @@ src/
 
 ## Planned Improvements
 
-These are deliberate "next steps" I would explore in a real-world
-setting:
+## Planned Improvements
 
-1.  **Drag-and-Drop Support**
-    - Replace the dropdown-based move logic with drag-and-drop using
-      `@dnd-kit` or `react-beautiful-dnd`.
-    - Add keyboard-accessible drag handles where possible.
-2.  **Ticket Details + Editing**
-    - Click a ticket to open a detail panel or modal.
-    - Support editing title/description and deleting tickets.
-3.  **Filtering & Search**
-    - Add a global search box to filter tickets by text.
-    - Optional: tag-based filtering (e.g., priority, owner).
-4.  **Tests**
-    - Add unit tests with Vitest + React Testing Library.
-    - Cover `useLocalStorageState` and basic board operations.
-5.  **Accessibility Improvements**
-    - Audit the markup for ARIA roles (e.g., list / listitem).
-    - Improve focus states and keyboard navigation.
-6.  **Backend Integration (Stretch Goal)**
-    - Replace localStorage with a simple backend (Node/Express,
-      ASP.NET, etc.).
-    - Add basic auth and multi-user boards.
+These next steps will further evolve the project:
+
+1. **Ticket Details + Editing**
+
+   - Click a ticket to open a detail or modal panel
+   - Allow editing title/description and deleting tickets
+
+2. **Filtering & Search**
+
+   - Add global search box to filter tickets by text
+   - Optional: tag-based filtering (priority, owner, etc.)
+
+3. **In-Column Reordering**
+
+   - Allow reordering tickets within a column using drag-and-drop
+
+4. **Tests**
+
+   - Add unit tests with Vitest + React Testing Library
+   - Cover `useLocalStorageState` and basic board operations
+
+5. **Accessibility Improvements**
+
+   - Add list/listitem roles
+   - Improve keyboard navigation
+   - Add drag handles for keyboard-driven reordering
+
+6. **Backend Integration (Stretch Goal)**
+   - Replace `localStorage` with backend support
+   - Add basic auth and multi-user boards
 
 ---
 

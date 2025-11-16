@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useDroppable } from "@dnd-kit/core"
 import type { Column as ColumnType, ColumnId, Ticket } from "../../types/board"
 import { TicketCard } from "./TicketCard"
 
@@ -6,16 +7,14 @@ interface ColumnProps {
   column: ColumnType
   tickets: Ticket[]
   onAddTicket: (columnId: ColumnId, title: string) => void
-  onMoveTicket: (ticketId: string, toColumnId: ColumnId) => void
 }
 
-export function Column({
-  column,
-  tickets,
-  onAddTicket,
-  onMoveTicket,
-}: ColumnProps) {
+export function Column({ column, tickets, onAddTicket }: ColumnProps) {
   const [newTitle, setNewTitle] = useState("")
+
+  const { setNodeRef, isOver } = useDroppable({
+    id: column.id,
+  })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +25,11 @@ export function Column({
   }
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 flex flex-col gap-3">
+    <section
+      className={`rounded-xl border bg-slate-900/60 p-3 flex flex-col gap-3 transition-colors ${
+        isOver ? "border-sky-500/70" : "border-slate-800"
+      }`}
+    >
       <header className="flex items-center justify-between mb-1">
         <h2 className="text-sm font-semibold tracking-tight">{column.title}</h2>
         <span className="text-xs text-slate-500">
@@ -34,9 +37,13 @@ export function Column({
         </span>
       </header>
 
-      <div className="flex flex-col gap-2 flex-1">
+      {/* Droppable area */}
+      <div
+        ref={setNodeRef}
+        className="flex flex-col gap-2 flex-1 min-h-[80px] py-1"
+      >
         {tickets.map((ticket) => (
-          <TicketCard key={ticket.id} ticket={ticket} onMove={onMoveTicket} />
+          <TicketCard key={ticket.id} ticket={ticket} />
         ))}
         {tickets.length === 0 && (
           <p className="text-xs text-slate-500 italic">
