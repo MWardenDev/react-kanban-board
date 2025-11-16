@@ -1,73 +1,153 @@
-# React + TypeScript + Vite
+# React Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, single-page Kanban board built with **React**, **TypeScript**,
+**Vite**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+- Four standard columns: **Backlog**, **In Progress**, **Review**,
+  **Done**
+- Add new tickets directly into any column
+- Move tickets between columns
+- State persisted in **localStorage** (refresh-safe)
+- Clean, responsive layout
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> This project is part of my personal portfolio. It's intentionally
+> small but structured like a "real" app, with clear separation of
+> features, hooks, and types.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Live Demo
 
-## Expanding the ESLint configuration
+🚀 **Deployed on Vercel:** https://react-kanban-board-rosy.vercel.app/
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+(Once deployed, I'll replace this line with the actual URL.)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React** (with hooks)
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS (v4)**
+- **localStorage** for persistence
+
+---
+
+## Features
+
+- Four Kanban columns with distinct IDs and titles
+- Add tickets with a small inline form per column
+- Move tickets between columns via a "Move to" dropdown
+- Ticket counts displayed per column
+- Data stored and loaded from `localStorage` under a dedicated key
+- Simple, dark-themed UI with responsive grid layout
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/YOUR_GITHUB_USERNAME/react-kanban-board.git
+cd react-kanban-board
+
+# Install dependencies
+npm install
+
+# Run the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the printed URL (typically `http://localhost:5173`) in your
+browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Scripts
+
+- `npm run dev` -- Start the Vite dev server
+- `npm run build` -- Build the app for production
+- `npm run preview` -- Preview the production build locally
+
+---
+
+## Project Structure
+
+```text
+src/
+  components/
+    layout/
+      AppShell.tsx       # Page chrome (header/footer/layout)
+  features/
+    board/
+      BoardPage.tsx      # Main Kanban board page
+      Column.tsx         # Renders a single column and its tickets
+      TicketCard.tsx     # Renders a single ticket
+  hooks/
+    useLocalStorageState.ts  # Reusable localStorage-backed state hook
+  types/
+    board.ts             # Column and Ticket TypeScript types
+  App.tsx
+  main.tsx
+  index.css              # Tailwind v4 entrypoint + global styles
 ```
+
+---
+
+## Implementation Notes
+
+- **State & Types**\
+  Tickets and columns are strongly typed using TypeScript interfaces
+  and union types (`ColumnId`). This keeps the code self-documenting
+  and reduces errors when moving tickets across columns.
+
+- **Persistence**\
+  A custom hook, `useLocalStorageState`, wraps `useState` +
+  `localStorage` read/write logic. It's generic and can be reused in
+  other React projects.
+
+- **UI & Layout**\
+  Tailwind CSS v4 is used for layout and styling via utility classes.
+  The board is responsive, using a CSS grid that collapses gracefully
+  on smaller screens.
+
+---
+
+## Planned Improvements
+
+These are deliberate "next steps" I would explore in a real-world
+setting:
+
+1.  **Drag-and-Drop Support**
+    - Replace the dropdown-based move logic with drag-and-drop using
+      `@dnd-kit` or `react-beautiful-dnd`.
+    - Add keyboard-accessible drag handles where possible.
+2.  **Ticket Details + Editing**
+    - Click a ticket to open a detail panel or modal.
+    - Support editing title/description and deleting tickets.
+3.  **Filtering & Search**
+    - Add a global search box to filter tickets by text.
+    - Optional: tag-based filtering (e.g., priority, owner).
+4.  **Tests**
+    - Add unit tests with Vitest + React Testing Library.
+    - Cover `useLocalStorageState` and basic board operations.
+5.  **Accessibility Improvements**
+    - Audit the markup for ARIA roles (e.g., list / listitem).
+    - Improve focus states and keyboard navigation.
+6.  **Backend Integration (Stretch Goal)**
+    - Replace localStorage with a simple backend (Node/Express,
+      ASP.NET, etc.).
+    - Add basic auth and multi-user boards.
+
+---
+
+## Why This Project Exists
+
+This app is designed to demonstrate:
+
+- Practical use of **React + TypeScript** for a non-trivial UI
+- Sensible **state management** and data modeling
+- Clean, reusable separation of **features**, **hooks**, and **types**
+- Awareness of **future improvements** and how I would evolve a small
+  codebase over time
