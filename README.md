@@ -1,5 +1,5 @@
 # React Kanban Board
-<img width="174.6" height="102.2" alt="Kanban_Screenshot" src="https://github.com/user-attachments/assets/aa32d95b-8087-4b86-b6d8-870fe7c44daf" />
+<img width="861.5" height="511" alt="Kanban_Screenshot" src="https://github.com/user-attachments/assets/aa32d95b-8087-4b86-b6d8-870fe7c44daf" />
 
 
 A simple, single-page Kanban board built with **React**, **TypeScript**,
